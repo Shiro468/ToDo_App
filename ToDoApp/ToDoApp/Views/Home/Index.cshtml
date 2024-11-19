@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Jobs>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">ToDoList</h1>
+    <p>Add your tasks below</p>
+</div>
+<form method="post">
+<div class="buttonAdd-section">
+        <a asp-area="" asp-controller="Home" asp-action="Formula" type="submit">
+            <img src="~/css/Images/blue-plus-icon-12.png" width="40px" height="40px" alt="buttonpng" border="0" />
+            <p>Tutaj dodaj nowe zadanie</p>
+        </a>  
+</div>
+</form>
+
+<div class="b-example-divider"></div>
+
+@foreach (var item in Model ?? Enumerable.Empty<Jobs>())
+{
+    <div class="list-group">
+        <label class="list-group-item d-flex gap-3">
+            <input class="form-check-input flex-shrink-0" type="checkbox" value="" checked="" style="font-size: 1.375em;">
+            <span class="pt-1 form-checked-content">
+                <strong>@item.Title</strong>
+                <small class="d-block text-body-secondary">
+                    <svg class="bi me-1" width="1em" height="1em"><use xlink:href="#calendar-event"></use></svg>
+                    @item.FinishTime
+                </small>
+            </span>
+        </label>
+    </div>
+}

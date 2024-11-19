@@ -1,0 +1,20 @@
+﻿@model  Jobs
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control">
+        <span asp-validation-for="Title" class="text-danger"></span>
+        <div id="emailHelp"</div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control">
+        <span asp-validation-for="Description" class="text-danger"></span>
+        <div id="emailHelp"</div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FinishTime">Date</label>
+        <input asp-for="FinishTime" class="form-control">
+    </div>
+    <button type="submit" asp-controller="Home" asp-action="Create" class="btn btn-primary">Submit</button>
+</form>
