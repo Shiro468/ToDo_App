@@ -22,6 +22,36 @@ namespace ToDoApp.Controllers
             return View(jobs);
         }
 
+        [HttpPost]
+        public IActionResult Create([FromForm] Jobs jobs)
+        {
+            if (ModelState.IsValid)
+            {
+                _jobsRepository.Add(jobs);
+                return RedirectToAction("Index");
+            }
+            return View("Formula");
+
+        }
+
+        //add to Views Delete.cshtml with
+        //question about confirmation to delete task 
+        public async Task<IActionResult> Delete(int id) 
+        {
+            var tasksDetails = await _jobsRepository.GetByIdAsync(id);
+            if (tasksDetails == null) return View("Error");
+            return View(tasksDetails);
+        }
+
+        [HttpPost, ActionName("DeleteTask")]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            var tasksDetails = await _jobsRepository.GetByIdAsync(id);
+            if (tasksDetails == null) return View("Error");
+
+            _jobsRepository.Delete(tasksDetails);
+            return RedirectToAction("Index");
+        }
         public IActionResult Formula()
         {
             return View();
@@ -30,18 +60,6 @@ namespace ToDoApp.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [HttpPost]
-        public IActionResult Create([FromForm] Jobs jobs)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Index");
-            }
-            _jobsRepository.Add(jobs);
-            return RedirectToAction("Index");
-            // dodac jeszcze walidacje przy bledzie bo ten brzydko wyglada slowa klucze validation of model  
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
